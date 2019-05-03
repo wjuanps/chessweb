@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Promover Peão</title>
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+    <h:body styleClass="body">
+        <h:form>
+            <p:panel header="Escolha a nova peça" rendered="#{tabuleiroBean.jogadorAtual('Brancas')}"
+                     styleClass="promocao-peao">
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(11)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/branca-rainha.png');"/>
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(8)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/branca-torre.png');"/>
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(10)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/branca-bispo.png');"/>
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(9)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/branca-cavalo.png');"/>
+            </p:panel>
+
+            <p:panel header="Escolha a nova peça" rendered="#{tabuleiroBean.jogadorAtual('Pretas')}"
+                     styleClass="promocao-peao">
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(5)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/preta-rainha.png');"/>
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(2)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/preta-torre.png');"/>
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(4)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/preta-bispo.png');"/>
+                <p:commandButton value="" styleClass="btn"
+                                 actionListener="#{tabuleiroBean.promoverPeao(3)}"
+                                 style="background-color: #cecece; background-image: url('resources/images/preta-cavalo.png');"/>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,73 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/05/2017, 10:09:23
+    Author     : Sophia
+*/
+@charset "UTF-8";
+
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 95% !important;
+}
+
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;
+}
+
+.div {
+    height: 550px;
+    width: 900px;
+    margin: 30px auto;
+    box-shadow: 0px 0px 6px white;
+    background-image: url('../resources/images/back.png');
+    color: #f97377;
+}
+
+.body {
+    background-image: url('../resources/images/escheresque_ste_@2X.png');
+}
+
+.btn {
+    width: 60px; 
+    height: 60px;
+}
+
+.btn:hover {
+    box-shadow: 0px 0px 8px #00b4eb;
+    cursor: pointer;
+}
+
+.wc-msg {
+    color: #000d4b;
+    font-weight: bolder;
+    font-family: "sefif";
+    font-size: 12pt;
+}
+
+.wc-chat {
+    height: 253px;
+}
+
+.wc-server {
+    height: 163px;
+}
+
+.wc-mensagem {
+    overflow: auto;
+    width: 355px;
+    margin-right: -5px;
+    background: rgba(255,255,255,.7);
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.promocao-peao {
+    width: 44.5%; 
+    margin: auto; 
+    background-image: url('../resources/images/back.png'); 
+    margin-top: 20px;
+}

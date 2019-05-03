@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>WChess Web - Juan Soares</title>
+        <h:outputStylesheet library="css" name="style.css" />
+        <h:outputScript library="js" name="js.js" />
+    </h:head>
+    <h:body styleClass="body">
+
+        <p:growl autoUpdate="true" life="7000" showDetail="true" showSummary="true" />
+
+        <h:form id="form">
+            <p:panel header="Chess Web - by Juan Soares" id="mesa" styleClass="div">
+                <f:facet name="options">
+                    <p:menu style="width: 300px;">
+                        <p:menuitem value="Iniciar nova partida contra o Computador" 
+                                    actionListener="#{tabuleiroBean.reiniciarPartida}"
+                                    update="form:mesa" icon="ui-icon-script">
+                            <f:setPropertyActionListener target="#{tabuleiroBean.computador}" value="#{true}" />
+                            <f:setPropertyActionListener target="#{tabuleiroBean.online}" value="#{false}" />
+                        </p:menuitem>
+
+                        <p:menuitem value="Iniciar nova partida contra uma Pessoa" 
+                                    actionListener="#{tabuleiroBean.reiniciarPartida}"
+                                    update="form:mesa" icon="ui-icon-person">
+                            <f:setPropertyActionListener target="#{tabuleiroBean.computador}" value="#{false}" />
+                            <f:setPropertyActionListener target="#{tabuleiroBean.online}" value="#{false}" />
+                        </p:menuitem>
+
+                        <p:menuitem value="Iniciar nova partida Online" onclick="PF('online').show();"
+                                    update="form:mesa" process="@this" icon="ui-icon-person"
+                                    rendered="#{not tabuleiroBean.online}" />
+
+                        <p:menuitem value="Desconectar do Servidor"
+                                    update="form:mesa" process="@this" icon="ui-icon-person"
+                                    rendered="#{tabuleiroBean.online}" />
+
+                        <p:separator />
+
+                        <p:menuitem value="Ajuda" icon="ui-icon-help" />
+                    </p:menu>
+                </f:facet>
+
+                <h:panelGrid id="image" style="float: right; clear: both;" columns="1">
+                    <p:graphicImage library="images" name="imagem.gif" style="width: 40px;"
+                                    rendered="#{tabuleiroBean.jogadorAtual('Brancas') and tabuleiroBean.computador}" />
+                </h:panelGrid>
+
+                <h:panelGrid id="panelChat" style="float: right; clear: both;" 
+                             rendered="#{tabuleiroBean.online}" columns="1">
+                    <p:row>
+                        <div class="wc-server wc-mensagem">
+                            <h:panelGrid id="txtMsg">
+                                <ui:repeat value="#{tabuleiroBean.mensagem}" var="mensagem">
+                                    <p:row>
+                                        <span class="wc-msg">#{mensagem}</span><br />
+                                    </p:row>
+                                </ui:repeat>
+                            </h:panelGrid>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <p:outputLabel value="Chat" style="font-weight: bolder; color: black;" />
+                        <div class="wc-chat wc-mensagem">
+                            <h:panelGrid id="txtChat">
+                                <ui:repeat value="#{tabuleiroBean.chats}" var="chat">
+                                    <p:row>
+                                        <span class="wc-msg">#{chat}</span><br />
+                                    </p:row>
+                                </ui:repeat>
+                            </h:panelGrid>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <p:inputText value="#{tabuleiroBean.chat}" rendered="#{tabuleiroBean.online}" id="txt"
+                                     style="width: 272px; margin-right: 5px; font-weight: bolder; background: rgba(255,255,255,.7);" />
+                        <p:commandButton value="Enviar" rendered="#{tabuleiroBean.online}" id="btn"
+                                         actionListener="#{tabuleiroBean.enviarMensagem}" update="txt" />
+                    </p:row>
+                </h:panelGrid>
+
+                <h:panelGrid id="tabuleiro">
+                    <p:column>
+                        <ui:repeat value="#{tabuleiroBean.tabuleiroView}" var="tabuleiro">
+                            <ui:repeat value="#{tabuleiro}" var="peca">
+                                <p:commandButton value="" styleClass="btn"
+                                                 actionListener="#{tabuleiroBean.ciclo(peca.posicao)}"
+                                                 update="@form"
+                                                 style="background-color: #{peca.fundo};
+                                                 background-image: url('resources/images/#{peca.image}');">
+                                    <p:ajax event="dialogReturn" listener="#{tabuleiroBean.promocaoPeao}" update="@form" />
+                                </p:commandButton>
+                            </ui:repeat>
+                            <br />
+                        </ui:repeat>
+                    </p:column>
+                </h:panelGrid>
+            </p:panel>
+                <p:draggable for="tabuleiro" /> 
+
+            <p:contextMenu for="mesa" id="context" style="width: 300px;">
+                <p:menuitem value="Iniciar nova partida contra o Computador" 
+                            actionListener="#{tabuleiroBean.reiniciarPartida}"
+                            update="form:mesa" icon="ui-icon-script">
+                    <f:setPropertyActionListener target="#{tabuleiroBean.computador}" value="#{true}" />
+                    <f:setPropertyActionListener target="#{tabuleiroBean.online}" value="#{false}" />
+                </p:menuitem>
+
+                <p:menuitem value="Iniciar nova partida contra uma Pessoa" 
+                            actionListener="#{tabuleiroBean.reiniciarPartida}"
+                            update="form:mesa" icon="ui-icon-person">
+                    <f:setPropertyActionListener target="#{tabuleiroBean.computador}" value="#{false}" />
+                    <f:setPropertyActionListener target="#{tabuleiroBean.online}" value="#{false}" />
+                </p:menuitem>
+
+                <p:menuitem value="Iniciar nova partida Online" onclick="PF('online').show();"
+                            update="form:mesa" process="@this" icon="ui-icon-person"
+                            rendered="#{not tabuleiroBean.online}" />
+
+                <p:menuitem value="Desconectar do Servidor"
+                            update="form:mesa" process="@this" icon="ui-icon-person"
+                            rendered="#{tabuleiroBean.online}" />
+
+                <p:separator />
+
+                <p:menuitem value="Ajuda" icon="ui-icon-help" />
+            </p:contextMenu>
+        </h:form>
+
+        <h:form>
+            <p:poll update=":form:tabuleiro :form:image :form:txtChat :form:txtMsg" 
+                    interval="1" listener="#{tabuleiroBean.jogar}" />
+        </h:form>
+
+        <h:form id="dlg">
+            <p:dialog closable="false" draggable="true" modal="true" hideEffect="explode" showEffect="size"
+                      resizable="false" height="70" width="500"
+                      widgetVar="online" header="WChess Web - By Juan Soares - Conexão com o servidor">
+                <p:panel id="panel" style="border: none;">
+                    <p:outputLabel for="nome" value="Informe o seu nome" />
+                    <p:inputText value="#{tabuleiroBean.nomeJogador}" required="true" id="nome"
+                                 style="width: 98%;" />
+
+                </p:panel>
+                <f:facet name="footer">
+                    <p:commandButton value="Confirmar" update=":form:tabuleiro :form:txt :form:mesa :form:context" icon="ui-icon-circle-check"
+                                     actionListener="#{tabuleiroBean.jogarOnline}"
+                                     oncomplete="conectarServidor(xhr, status, args, 'online')" />
+                    <p:commandButton value="Cancelar" process="@this" icon="ui-icon-close"
+                                     style="float: right;"
+                                     oncomplete="PF('online').hide();" />
+                </f:facet>
+            </p:dialog>
+        </h:form>
+
+    </h:body>
+</html>
