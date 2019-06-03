@@ -9,12 +9,13 @@ import br.com.wjuan.chess_web.model.vo.Move;
 import br.com.wjuan.chess_web.model.vo.Peca;
 import br.com.wjuan.chess_web.model.vo.Peca.TipoPeca;
 import br.com.wjuan.chess_web.model.vo.Posicao;
+import java.io.Serializable;
 
 /**
  *
  * @author Sophia
  */
-public final class Chess {
+public final class Chess implements Serializable {
 
     /**
      *

@@ -7,6 +7,7 @@ package br.com.wjuan.chess_web.model.bo;
 
 import br.com.wjuan.chess_web.model.vo.Posicao;
 import br.com.wjuan.chess_web.model.vo.Tabuleiro;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author Sophia
  */
-public final class Pieces {
+public final class Pieces implements Serializable {
 
     private final List<Piece> pecas;
     

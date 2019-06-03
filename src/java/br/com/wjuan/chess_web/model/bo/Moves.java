@@ -204,7 +204,7 @@ public abstract class Moves implements Serializable {
         int min = 8;
         switch (direcao) {
             case VERTICAL:
-                for (Posicao p : getColuna(a, b, n, tabuleiro)) {
+                for (Posicao p : Moves.getColuna(a, b, n, tabuleiro)) {
                     if (p.getX() >= max) {
                         max = p.getX();
                     }
@@ -212,7 +212,7 @@ public abstract class Moves implements Serializable {
                         min = p.getX();
                     }
                 }
-                posicoes.addAll(getPosicoes(max, min, b, direcao));
+                posicoes.addAll(Moves.getPosicoes(max, min, b, direcao));
                 break;
             case HORIZONTAL:
                 for (Posicao p : getFileira(a, b, n, tabuleiro)) {

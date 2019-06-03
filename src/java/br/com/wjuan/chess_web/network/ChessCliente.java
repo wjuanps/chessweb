@@ -80,6 +80,7 @@ public final class ChessCliente implements Serializable, Network, Constantes {
      * @param move
      */
     public void enviarJogada(TabuleiroBO tabuleiro, Move move) {
+        System.out.println(move.toString());
         try {
             this.output.writeObject(tabuleiro);
             this.output.flush();
@@ -87,6 +88,7 @@ public final class ChessCliente implements Serializable, Network, Constantes {
             this.output.writeObject(move);
             this.output.flush();
         } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
